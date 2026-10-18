@@ -18,6 +18,16 @@ public class SniperItem extends GunItem {
 				WeaponConfig.SNIPER_FIRE_DELAY, WeaponConfig.SNIPER_RELOAD);
 	}
 
+	@Override
+	public int reloadFrames() {
+		return WeaponConfig.SNIPER_RELOAD_FRAMES;
+	}
+
+	@Override
+	public String[] reloadSounds() {
+		return new String[] { "block.iron_trapdoor.open", "block.piston.contract", null, "block.lever.click", "item.armor.equip_iron", null, "item.armor.equip_iron", "block.lever.click", "block.piston.extend", "item.crossbow.loading_end" };
+	}
+
 	/** Sag tik basili tutulunca scope acilir (esya "kullaniliyor" durumuna girer). */
 	@Override
 	public InteractionResult use(Level level, Player player, InteractionHand hand) {

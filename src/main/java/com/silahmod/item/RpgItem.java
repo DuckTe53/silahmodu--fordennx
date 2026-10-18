@@ -13,6 +13,21 @@ public class RpgItem extends GunItem {
 	}
 
 	@Override
+	public int reloadFrames() {
+		return WeaponConfig.RPG_RELOAD_FRAMES;
+	}
+
+	@Override
+	public String[] reloadSounds() {
+		return new String[] { "item.armor.equip_iron", "block.piston.contract", null, "block.dispenser.dispense", null, "item.crossbow.loading_start", null, "block.piston.extend", "item.crossbow.loading_middle", "item.crossbow.loading_end" };
+	}
+
+	@Override
+	protected boolean hasEmptyModel() {
+		return true;
+	}
+
+	@Override
 	public void fire(ServerPlayer player, ServerLevel level) {
 		RocketManager.launch(level, player);
 	}

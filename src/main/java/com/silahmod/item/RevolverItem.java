@@ -13,6 +13,16 @@ public class RevolverItem extends GunItem {
 	}
 
 	@Override
+	public int reloadFrames() {
+		return WeaponConfig.REVOLVER_RELOAD_FRAMES;
+	}
+
+	@Override
+	public String[] reloadSounds() {
+		return new String[] { "item.crossbow.loading_start", "block.iron_trapdoor.open", null, "block.piston.extend", null, "item.armor.equip_iron", "block.lever.click", "block.iron_trapdoor.close", "item.crossbow.loading_end" };
+	}
+
+	@Override
 	public void fire(ServerPlayer player, ServerLevel level) {
 		Ballistics.shoot(level, player, WeaponConfig.REVOLVER_RANGE,
 				WeaponConfig.REVOLVER_HEAD, WeaponConfig.REVOLVER_BODY,

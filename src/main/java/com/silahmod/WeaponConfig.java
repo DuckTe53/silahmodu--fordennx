@@ -22,6 +22,7 @@ public final class WeaponConfig {
 	public static final double SNIPER_RANGE = 300.0;
 	public static final int SNIPER_FIRE_DELAY = 30;    // atislar arasi (1.5 sn) - benim varsayimim
 	public static final int SNIPER_RELOAD = 70;        // doldurma suresi - benim varsayimim
+	public static final int SNIPER_RELOAD_FRAMES = 10; // reload animasyon kare sayisi (tools/gen_models.py ile ayni olmali)
 
 	// ---------------- RPG ----------------
 	public static final int RPG_MAG = 3;
@@ -34,6 +35,7 @@ public final class WeaponConfig {
 	public static final int RPG_MAX_AGE = 120;             // 6 sn sonra kendiliginden patlar
 	public static final int RPG_FIRE_DELAY = 40;
 	public static final int RPG_RELOAD = 80;
+	public static final int RPG_RELOAD_FRAMES = 10;
 
 	// ---------------- REVOLVER ----------------
 	public static final int REVOLVER_MAG = 8;
@@ -43,6 +45,7 @@ public final class WeaponConfig {
 	public static final double REVOLVER_RANGE = 120.0;
 	public static final int REVOLVER_FIRE_DELAY = 8;
 	public static final int REVOLVER_RELOAD = 50;
+	public static final int REVOLVER_RELOAD_FRAMES = 9;
 
 	// ---------------- BICAK ----------------
 	public static final float KNIFE_BACKSTAB = 200.0F;     // arkadan

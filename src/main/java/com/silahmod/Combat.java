@@ -25,7 +25,19 @@ import net.minecraft.world.phys.Vec3;
 public final class Combat {
 	private Combat() {}
 
-	private record Reload(ItemStack stack, long endTick) {}
+	/** Devam eden bir doldurma. frame = su an gosterilen animasyon karesi (1'den baslar). */
+	private static final class Reload {
+		final ItemStack stack;
+		final long startTick;
+		final long endTick;
+		int frame;
+
+		Reload(ItemStack stack, long startTick, long endTick) {
+			this.stack = stack;
+			this.startTick = startTick;
+			this.endTick = endTick;
+		}
+	}
 
 	private static final Map<UUID, Long> NEXT_SHOT = new HashMap<>();
 	private static final Map<UUID, Long> KNIFE_NEXT = new HashMap<>();
@@ -38,6 +50,15 @@ public final class Combat {
 			NEXT_SHOT.remove(id);
 			KNIFE_NEXT.remove(id);
 			RELOADS.remove(id);
+		});
+		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+			ServerPlayer player = handler.getPlayer();
+			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+				ItemStack stack = player.getInventory().getItem(i);
+				if (stack.getItem() instanceof GunItem gun) {
+					gun.refreshIdleFrame(stack);
+				}
+			}
 		});
 		AttackEntityCallback.EVENT.register(Combat::onAttack);
 	}
@@ -80,6 +101,7 @@ public final class Combat {
 
 		NEXT_SHOT.put(id, now + gun.fireDelay);
 		gun.setAmmo(stack, new AmmoData(ammo.mag() - 1, ammo.reserve()));
+		gun.refreshIdleFrame(stack);
 		gun.fire(player, level);
 	}
 
@@ -104,8 +126,10 @@ public final class Combat {
 			message(player, "message.silahmod.no_ammo");
 			return;
 		}
-		RELOADS.put(id, new Reload(stack, level.getGameTime() + gun.reloadTicks));
-		Sfx.play(level, player.getX(), player.getEyeY(), player.getZ(), "item.crossbow.loading_start", 1.0F, 1.0F);
+		long now = level.getGameTime();
+		Reload reload = new Reload(stack, now, now + gun.reloadTicks);
+		RELOADS.put(id, reload);
+		advanceFrame(player, level, gun, reload, 1);
 		message(player, "message.silahmod.reloading");
 	}
 
@@ -117,6 +141,7 @@ public final class Combat {
 		int take = Math.min(gun.magSize - ammo.mag(), ammo.reserve());
 		AmmoData updated = new AmmoData(ammo.mag() + take, ammo.reserve() - take);
 		gun.setAmmo(stack, updated);
+		gun.refreshIdleFrame(stack);
 		Sfx.play(level, player.getX(), player.getEyeY(), player.getZ(), "item.crossbow.loading_end", 1.0F, 1.0F);
 		message(player, "message.silahmod.reloaded", updated.mag(), updated.reserve());
 	}
@@ -134,17 +159,42 @@ public final class Combat {
 			Reload reload = entry.getValue();
 
 			// Oyuncu silahi elinden biraktiysa / oldyse doldurma iptal
-			if (player == null || !player.isAlive() || player.getMainHandItem() != reload.stack()) {
+			if (player == null || !player.isAlive() || player.getMainHandItem() != reload.stack) {
+				if (reload.stack.getItem() instanceof GunItem gun) {
+					gun.refreshIdleFrame(reload.stack); // animasyon karesinde takili kalmasin
+				}
 				if (player != null) {
 					message(player, "message.silahmod.reload_cancelled");
 				}
 				it.remove();
 				continue;
 			}
-			if (player.level() instanceof ServerLevel level && level.getGameTime() >= reload.endTick()) {
-				finishReload(player, reload.stack(), level);
-				it.remove();
+			if (!(player.level() instanceof ServerLevel level) || !(reload.stack.getItem() instanceof GunItem gun)) {
+				continue;
 			}
+			long now = level.getGameTime();
+			if (now >= reload.endTick) {
+				finishReload(player, reload.stack, level);
+				it.remove();
+				continue;
+			}
+			// Gecen sureye gore animasyon karesini ilerlet (1..reloadFrames)
+			int frames = gun.reloadFrames();
+			long total = Math.max(1L, reload.endTick - reload.startTick);
+			int target = (int) Math.min(frames, 1 + (now - reload.startTick) * frames / total);
+			if (target != reload.frame) {
+				advanceFrame(player, level, gun, reload, target);
+			}
+		}
+	}
+
+	/** Animasyonu verilen kareye getirir ve o kareye bagli sesi calar. */
+	private static void advanceFrame(ServerPlayer player, ServerLevel level, GunItem gun, Reload reload, int frame) {
+		reload.frame = frame;
+		gun.setFrame(reload.stack, frame);
+		String[] sounds = gun.reloadSounds();
+		if (frame - 1 < sounds.length && sounds[frame - 1] != null) {
+			Sfx.play(level, player.getX(), player.getEyeY(), player.getZ(), sounds[frame - 1], 0.9F, 1.0F);
 		}
 	}
 
@@ -215,6 +265,7 @@ public final class Combat {
 			if (existing.getItem() == item) {
 				if (item instanceof GunItem gun) {
 					gun.setAmmo(existing, new AmmoData(gun.magSize, gun.reserveMax));
+					gun.refreshIdleFrame(existing);
 					message(player, "message.silahmod.refilled");
 				}
 				return;

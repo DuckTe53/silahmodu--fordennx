@@ -1,6 +1,6 @@
 {
-  "model": {
-    "type": "minecraft:model",
-    "model": "silahmod:item/knife"
-  }
+ "model": {
+  "type": "minecraft:model",
+  "model": "silahmod:item/knife"
+ }
 }
