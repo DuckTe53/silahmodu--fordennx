@@ -81,7 +81,8 @@ public final class Ballistics {
 		Sfx.play(level, shooter.getX(), shooter.getEyeY(), shooter.getZ(), shotSound, 3.0F, pitch);
 
 		if (result.entity() != null) {
-			float damage = result.head() ? headDamage : bodyDamage;
+			float damage = result.head() ? headDamage
+					: bodyDamage * (result.entity() instanceof LivingEntity living ? Armors.bodyFactor(living) : 1.0F);
 			damage(level, shooter, result.entity(), damage);
 			if (result.head()) {
 				shooter.displayClientMessage(Component.translatable("message.silahmod.headshot"), true);

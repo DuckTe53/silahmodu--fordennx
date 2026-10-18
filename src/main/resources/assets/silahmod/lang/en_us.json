@@ -16,5 +16,11 @@
   "message.silahmod.reload_cancelled": "Reload cancelled",
   "message.silahmod.mag_full": "Magazine is already full",
   "message.silahmod.no_ammo": "Out of ammo!",
-  "message.silahmod.refilled": "Ammo refilled"
+  "message.silahmod.refilled": "Ammo refilled",
+  "item.silahmod.helmet_1": "Level 1 Helmet",
+  "item.silahmod.vest_1": "Level 1 Vest",
+  "item.silahmod.helmet_2": "Level 2 Helmet",
+  "item.silahmod.vest_2": "Level 2 Vest",
+  "gui.silahmod.weapons": "Weapons",
+  "gui.silahmod.armors": "Armor"
 }

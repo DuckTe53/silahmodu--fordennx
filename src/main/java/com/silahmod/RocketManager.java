@@ -132,7 +132,9 @@ public final class RocketManager {
 			if (!WeaponConfig.RPG_HURTS_SHOOTER && target.getUUID().equals(ownerId)) {
 				continue;
 			}
-			float amount = (target == direct && headHit) ? WeaponConfig.RPG_DIRECT_HEAD : WeaponConfig.RPG_BLAST;
+			float amount = (target == direct && headHit)
+					? WeaponConfig.RPG_DIRECT_HEAD * Armors.rpgHeadFactor(target)   // kask 1 kafa hasarini azaltir
+					: WeaponConfig.RPG_BLAST * Armors.bodyFactor(target);           // yelek govde hasarini azaltir
 			target.invulnerableTime = 0;
 			target.hurtServer(level, source, amount);
 		}

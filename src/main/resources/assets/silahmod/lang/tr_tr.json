@@ -16,5 +16,11 @@
   "message.silahmod.reload_cancelled": "Doldurma iptal edildi",
   "message.silahmod.mag_full": "Şarjör zaten dolu",
   "message.silahmod.no_ammo": "Mermi bitti!",
-  "message.silahmod.refilled": "Mermiler yenilendi"
+  "message.silahmod.refilled": "Mermiler yenilendi",
+  "item.silahmod.helmet_1": "Seviye 1 Kask",
+  "item.silahmod.vest_1": "Seviye 1 Yelek",
+  "item.silahmod.helmet_2": "Seviye 2 Kask",
+  "item.silahmod.vest_2": "Seviye 2 Yelek",
+  "gui.silahmod.weapons": "Silahlar",
+  "gui.silahmod.armors": "Zırhlar"
 }

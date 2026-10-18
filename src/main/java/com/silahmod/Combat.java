@@ -239,7 +239,7 @@ public final class Combat {
 			damage = WeaponConfig.KNIFE_HEAD;
 			message(attacker, "message.silahmod.headshot");
 		} else {
-			damage = WeaponConfig.KNIFE_FRONT;
+			damage = WeaponConfig.KNIFE_FRONT * Armors.bodyFactor(target); // yelek govde hasarini azaltir
 		}
 
 		Ballistics.damage(level, attacker, target, damage);
@@ -271,7 +271,14 @@ public final class Combat {
 				return;
 			}
 		}
-		ItemStack stack = item instanceof GunItem gun ? gun.createFull() : new ItemStack(item);
+		ItemStack stack;
+		if (item instanceof GunItem gun) {
+			stack = gun.createFull();
+		} else if (item == ModItems.HELMET_2) {
+			stack = ModItems.createHelmet2(player.level().registryAccess()); // Koruma II buyulu
+		} else {
+			stack = new ItemStack(item);
+		}
 		player.getInventory().placeItemBackInInventory(stack);
 	}
 }

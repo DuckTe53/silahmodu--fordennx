@@ -47,6 +47,24 @@ public final class WeaponConfig {
 	public static final int REVOLVER_RELOAD = 50;
 	public static final int REVOLVER_RELOAD_FRAMES = 9;
 
+	// ---------------- ZIRHLAR ----------------
+	// Kask 1 (yesil): demir kask gibi (2 zirh) + RPG'nin tam kafa isabetini azaltir. Azaltma orani benim varsayimim.
+	public static final double HELMET_1_ARMOR = 2.0;
+	public static final double HELMET_1_TOUGHNESS = 0.0;
+	public static final float HELMET_1_RPG_HEAD_REDUCTION = 0.25F;   // RPG tam kafa hasari %25 azalir
+
+	// Yelek 1 (gri kamuflaj): tum silahlarin govde hasarini azaltir
+	public static final float VEST_1_BODY_REDUCTION = 0.15F;         // %15
+
+	// Kask 2 (koyu, siperlikli): Koruma II buyulu elmas pantolon gibi (6 zirh, 2 sertlik, Koruma II) + altin kalp
+	public static final double HELMET_2_ARMOR = 6.0;
+	public static final double HELMET_2_TOUGHNESS = 2.0;
+	public static final int HELMET_2_PROTECTION_LEVEL = 2;           // Koruma buyusu seviyesi
+	public static final int HELMET_2_GOLD_HEARTS = 2;                // giyince verilen altin kalp
+
+	// Yelek 2 (kahverengi): tum silahlarin govde hasarini azaltir
+	public static final float VEST_2_BODY_REDUCTION = 0.30F;         // %30
+
 	// ---------------- BICAK ----------------
 	public static final float KNIFE_BACKSTAB = 200.0F;     // arkadan
 	public static final float KNIFE_FRONT = hearts(3);     // onden govde = 6 HP
