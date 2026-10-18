@@ -23,6 +23,10 @@ public final class WeaponConfig {
 	public static final int SNIPER_FIRE_DELAY = 30;    // atislar arasi (1.5 sn) - benim varsayimim
 	public static final int SNIPER_RELOAD = 70;        // doldurma suresi - benim varsayimim
 	public static final int SNIPER_RELOAD_FRAMES = 10; // reload animasyon kare sayisi (tools/gen_models.py ile ayni olmali)
+	public static final boolean SNIPER_GLINT = true;   // durbun acan oyuncunun durbununde, BASKALARININ gordugu isik
+	public static final int SNIPER_GLINT_INTERVAL = 2; // isik kac tickte bir parlar (kucuk = daha sik)
+	public static final int SNIPER_GLINT_COLOR = 0xFFF2B0; // isik rengi (RGB). Kirmizi istersen 0xFF2020
+	public static final float SNIPER_GLINT_SIZE = 1.3F;    // isik buyuklugu
 
 	// ---------------- RPG ----------------
 	public static final int RPG_MAG = 3;

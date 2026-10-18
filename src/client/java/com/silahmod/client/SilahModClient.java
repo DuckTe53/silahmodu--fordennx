@@ -34,6 +34,7 @@ public class SilahModClient implements ClientModInitializer {
 			if (client.player == null || client.getConnection() == null) {
 				return;
 			}
+			ScopeGlint.tick(client);
 			while (reloadKey.consumeClick()) {
 				if (client.player.getMainHandItem().getItem() instanceof GunItem) {
 					ClientPlayNetworking.send(new Net.ReloadPayload());
