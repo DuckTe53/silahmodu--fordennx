@@ -2,7 +2,9 @@ package com.silahmod;
 
 import java.util.function.Function;
 
+import com.silahmod.item.GrenadeItem;
 import com.silahmod.item.KnifeItem;
+import com.silahmod.item.MedkitItem;
 import com.silahmod.item.RevolverItem;
 import com.silahmod.item.RpgItem;
 import com.silahmod.item.SniperItem;
@@ -49,6 +51,10 @@ public final class ModItems {
 	public static final KnifeItem KNIFE = register("knife", KnifeItem::new,
 			new Item.Properties().stacksTo(1));
 
+	/** El bombasi: sag tikla firlatilir, yigilabilir (GrenadeManager.java). */
+	public static final GrenadeItem GRENADE = register("grenade", GrenadeItem::new,
+			new Item.Properties().stacksTo(WeaponConfig.GRENADE_MAX_CARRY));
+
 	// ---------------- ZIRHLAR (klasik envanterdeki zirh yuvalarindan giyilir) ----------------
 	/** Kask 1: demir kask gibi 2 zirh. RPG kafa hasari azaltmasi Armors.java'da. */
 	public static final Item HELMET_1 = register("helmet_1", Item::new,
@@ -70,6 +76,10 @@ public final class ModItems {
 	public static final Item VEST_2 = register("vest_2", Item::new,
 			armorProperties(EquipmentSlot.CHEST, EquipmentSlotGroup.CHEST, "vest_2", SoundEvents.ARMOR_EQUIP_LEATHER,
 					0.0, 0.0, 0.0));
+
+	/** Med kit: sag tik basili tutulunca iyilestirir, yigilabilir (MedkitItem.java). Menude zirh sutunundadir. */
+	public static final MedkitItem MEDKIT = register("medkit", MedkitItem::new,
+			new Item.Properties().stacksTo(WeaponConfig.MEDKIT_MAX_CARRY));
 
 	public static final ResourceKey<CreativeModeTab> TAB_KEY =
 			ResourceKey.create(Registries.CREATIVE_MODE_TAB, SilahMod.id("silahlar"));
@@ -114,20 +124,22 @@ public final class ModItems {
 		return stack;
 	}
 
-	/** Toplam menu sirasi: 0-3 silahlar, 4-7 zirhlar. */
-	public static final int COUNT = 8;
+	/** Toplam menu sirasi: 0-4 silahlar, 5-9 zirhlar. */
+	public static final int COUNT = 10;
 
-	/** 0 sniper, 1 rpg, 2 revolver, 3 bicak, 4 kask 1, 5 yelek 1, 6 kask 2, 7 yelek 2 */
+	/** 0 sniper, 1 rpg, 2 revolver, 3 bicak, 4 el bombasi | 5 kask 1, 6 yelek 1, 7 kask 2, 8 yelek 2, 9 med kit */
 	public static Item byIndex(int index) {
 		return switch (index) {
 			case 0 -> SNIPER;
 			case 1 -> RPG;
 			case 2 -> REVOLVER;
 			case 3 -> KNIFE;
-			case 4 -> HELMET_1;
-			case 5 -> VEST_1;
-			case 6 -> HELMET_2;
-			case 7 -> VEST_2;
+			case 4 -> GRENADE;
+			case 5 -> HELMET_1;
+			case 6 -> VEST_1;
+			case 7 -> HELMET_2;
+			case 8 -> VEST_2;
+			case 9 -> MEDKIT;
 			default -> null;
 		};
 	}
@@ -142,10 +154,12 @@ public final class ModItems {
 					entries.accept(RPG.createFull());
 					entries.accept(REVOLVER.createFull());
 					entries.accept(KNIFE);
+					entries.accept(GRENADE);
 					entries.accept(HELMET_1);
 					entries.accept(VEST_1);
 					entries.accept(createHelmet2(context.holders()));
 					entries.accept(VEST_2);
+					entries.accept(MEDKIT);
 				})
 				.build());
 	}

@@ -22,5 +22,11 @@
   "item.silahmod.helmet_2": "Level 2 Helmet",
   "item.silahmod.vest_2": "Level 2 Vest",
   "gui.silahmod.weapons": "Weapons",
-  "gui.silahmod.armors": "Armor"
+  "gui.silahmod.armors": "Armor",
+  "item.silahmod.grenade": "Hand Grenade",
+  "item.silahmod.medkit": "Med Kit",
+  "message.silahmod.health_full": "Your health is already full",
+  "message.silahmod.healed": "Healed!",
+  "message.silahmod.max_carry": "You can't carry more (max %s)",
+  "message.silahmod.already_have": "You already have this item"
 }

@@ -19,12 +19,14 @@ import net.minecraft.world.item.ItemStack;
  * Minecraft 1.21.6+ surumlerinde "Can only blur once per frame" hatasiyla oyunu coker.
  */
 public class WeaponMenuScreen extends Screen {
-	/** Sira ModItems.byIndex ile ayni: 0-3 silahlar, 4-7 zirhlar. */
+	/** Sira ModItems.byIndex ile ayni: 0-4 silahlar (sol sutun), 5-9 zirhlar (sag sutun). */
 	private static final String[] NAME_KEYS = {
 			"item.silahmod.sniper", "item.silahmod.rpg", "item.silahmod.revolver", "item.silahmod.knife",
-			"item.silahmod.helmet_1", "item.silahmod.vest_1", "item.silahmod.helmet_2", "item.silahmod.vest_2"
+			"item.silahmod.grenade",
+			"item.silahmod.helmet_1", "item.silahmod.vest_1", "item.silahmod.helmet_2", "item.silahmod.vest_2",
+			"item.silahmod.medkit"
 	};
-	private static final int ROWS = 4;           // her sutunda 4 esya
+	private static final int ROWS = 5;           // her sutunda 5 esya
 	private static final int BUTTON_W = 130;
 	private static final int BUTTON_H = 22;
 	private static final int GAP = 5;

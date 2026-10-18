@@ -33,7 +33,7 @@ public final class Net {
 		}
 	}
 
-	/** B menusu: silah al (0 sniper, 1 rpg, 2 revolver, 3 bicak). */
+	/** B menusu: esya al (sira ModItems.byIndex ile ayni: 0-4 silahlar, 5-9 zirhlar). */
 	public record GiveWeaponPayload(int index) implements CustomPacketPayload {
 		public static final CustomPacketPayload.Type<GiveWeaponPayload> TYPE = new CustomPacketPayload.Type<>(SilahMod.id("give_weapon"));
 		public static final StreamCodec<FriendlyByteBuf, GiveWeaponPayload> CODEC =

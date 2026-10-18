@@ -16,6 +16,7 @@ public class SilahMod implements ModInitializer {
 		ModItems.init();
 		Net.init();
 		Combat.init();
+		GrenadeManager.init();
 		Armors.init();
 	}
 }

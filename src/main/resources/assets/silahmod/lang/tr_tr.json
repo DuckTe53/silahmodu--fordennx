@@ -22,5 +22,11 @@
   "item.silahmod.helmet_2": "Seviye 2 Kask",
   "item.silahmod.vest_2": "Seviye 2 Yelek",
   "gui.silahmod.weapons": "Silahlar",
-  "gui.silahmod.armors": "Zırhlar"
+  "gui.silahmod.armors": "Zırhlar",
+  "item.silahmod.grenade": "El Bombası",
+  "item.silahmod.medkit": "Med Kit",
+  "message.silahmod.health_full": "Canın zaten dolu",
+  "message.silahmod.healed": "İyileştin!",
+  "message.silahmod.max_carry": "Daha fazla taşıyamazsın (en fazla %s)",
+  "message.silahmod.already_have": "Bu eşya zaten envanterinde"
 }

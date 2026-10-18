@@ -69,6 +69,22 @@ public final class WeaponConfig {
 	// Yelek 2 (kahverengi): tum silahlarin govde hasarini azaltir
 	public static final float VEST_2_BODY_REDUCTION = 0.30F;         // %30
 
+	// ---------------- EL BOMBASI ----------------
+	// Sag tikla firlatilir (survivalda 1 adet harcar). Fitil bitince patlar; blok kirmaz, sadece hasar verir.
+	public static final int GRENADE_FUSE = 60;               // patlama suresi (tick). 20 tick = 1 saniye
+	public static final double GRENADE_SPEED = 1.1;          // firlatma hizi
+	public static final double GRENADE_RADIUS = 5.0;         // patlama yaricapi (blok)
+	public static final float GRENADE_DAMAGE = hearts(10);   // merkezdeki hasar = 20 HP; uzaklastikca azalir (en az %25)
+	public static final boolean GRENADE_HURTS_THROWER = true; // false = firlatan kendi bombasindan zarar gormez
+	public static final int GRENADE_COOLDOWN = 20;           // iki firlatma arasi (tick)
+	public static final int GRENADE_MAX_CARRY = 4;           // en fazla tasinabilecek (B menusu da buna kadar verir)
+
+	// ---------------- MED KIT ----------------
+	// Sag tik BASILI tutulur, sure dolunca can verir ve 1 adet harcanir (survivalda). Hareket yavaslar.
+	public static final float MEDKIT_HEAL = hearts(6);       // 12 HP = 6 kalp
+	public static final int MEDKIT_USE_TICKS = 60;           // kullanma suresi (tick) = 3 saniye
+	public static final int MEDKIT_MAX_CARRY = 4;            // en fazla tasinabilecek
+
 	// ---------------- BICAK ----------------
 	public static final float KNIFE_BACKSTAB = 200.0F;     // arkadan
 	public static final float KNIFE_FRONT = hearts(3);     // onden govde = 6 HP

@@ -148,6 +148,7 @@ public final class Combat {
 
 	private static void tick(MinecraftServer server) {
 		RocketManager.tick();
+		GrenadeManager.tick();
 
 		if (RELOADS.isEmpty()) {
 			return;
@@ -260,6 +261,23 @@ public final class Combat {
 		if (item == null) {
 			return;
 		}
+		// Yigilabilir esyalar (bomba, med kit): her tiklamada +1, tasima sinirina kadar
+		if (item == ModItems.GRENADE || item == ModItems.MEDKIT) {
+			int max = item == ModItems.GRENADE ? WeaponConfig.GRENADE_MAX_CARRY : WeaponConfig.MEDKIT_MAX_CARRY;
+			int have = 0;
+			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+				ItemStack existing = player.getInventory().getItem(i);
+				if (existing.is(item)) {
+					have += existing.getCount();
+				}
+			}
+			if (have >= max) {
+				message(player, "message.silahmod.max_carry", max);
+				return;
+			}
+			player.getInventory().placeItemBackInInventory(new ItemStack(item));
+			return;
+		}
 		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 			ItemStack existing = player.getInventory().getItem(i);
 			if (existing.getItem() == item) {
@@ -267,6 +285,8 @@ public final class Combat {
 					gun.setAmmo(existing, new AmmoData(gun.magSize, gun.reserveMax));
 					gun.refreshIdleFrame(existing);
 					message(player, "message.silahmod.refilled");
+				} else {
+					message(player, "message.silahmod.already_have"); // zaten var (kask/yelek/bicak)
 				}
 				return;
 			}
